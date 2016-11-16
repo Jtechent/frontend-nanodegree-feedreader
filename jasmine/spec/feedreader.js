@@ -28,6 +28,8 @@ $(function() {
 
 
          function testAllFeedsProp(prop) {
+           //loops through all the elements of the all feeds array and checks if some property is defined and
+           //equal to the correct value
              it('each feed has a ' + prop + ' property', function() {
                  for(var i=0;i<allFeeds.length;i++) {
                    expect(allFeeds[i][prop]).toBeDefined();
@@ -75,11 +77,14 @@ $(function() {
           */
 
          it('menu should slide out when icon is clicked', function() {
+           //gets the icon, clicks it and checks if the css class is correct and
+           //one more time for good measure
            var icon = document.getElementsByClassName('menu-icon-link')[0];
            icon.click();
            var bodyClass = document.body.classList;
            expect(bodyClass.contains('menu-hidden')).toBe(false);
            icon.click();
+           expect(bodyClass.contains('menu-hidden')).toBe(true);
          });
 
 
@@ -112,21 +117,25 @@ $(function() {
     });
 
     describe('New Feed Selection', function() {
+      //gives the ability to save the state of some entry-link content
       var firstContent = {content:''};
       var getFirstContent = (function () {
         var content = firstContent;
         var tbr = function() {
-          firstContent.content = document.querySelector('.entry-link');
+          firstContent.content = document.querySelector('.entry-link').textContent;
         }
+        return tbr;
       })();
       beforeEach(function(done) {
-        loadFeed(1, getFirstContent);
-        loadFeed(0, done);
+        //load a feed, get the content, load it again and check it again, call done
+        loadFeed(1, function() {
+          getFirstContent();
+          loadFeed(0, function() {done()});
+        });
       });
 
       it('should actually change the feed content after loading a new feed', function(done) {
         var foundContent = document.querySelector('.entry-link').textContent;
-        console.log(foundContent, firstContent.content);
         expect(foundContent).not.toEqual(firstContent.content);
         done();
       });
