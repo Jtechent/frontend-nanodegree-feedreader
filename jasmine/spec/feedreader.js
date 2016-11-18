@@ -66,8 +66,38 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-           it('be hidden by default', function() {
-             expect(document.body.classList.contains('menu-hidden')).toBe(true);
+           //some setup variables
+           var diff, secondDiff, i = 0;
+           var icon = document.querySelector('.menu-icon-link');
+
+           beforeEach(function(done) {
+             //in order to test the functionality of clicking the slide menu icon I will capture
+             //the left and right boundries of the elements positions before and after the click operation
+             var bodyLeft = document.body.getBoundingClientRect().left,
+                 slideRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+             if (i===0) {
+               //the first time this variable is called it records if the the right side of the
+               //slide menu farther left than the left side of the body of the document
+               diff = bodyLeft >= slideRight;
+               i++;
+               done();
+             }
+             else{
+               //after that the function pseudoclicks the icon and after the animation should be completes
+               //it records again
+               icon.click();
+               window.setTimeout(function() {
+                 var secondRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+                  secondDiff = bodyLeft >= secondRight;
+                  done();
+               }, 2200);
+             }
+           });
+
+
+           it('be hidden by default', function(done) {
+             expect(diff).toBe(true);
+             done();
            });
 
          /* TODO: Write a test that ensures the menu changes
@@ -76,15 +106,9 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
 
-         it('menu should slide out when icon is clicked', function() {
-           //gets the icon, clicks it and checks if the css class is correct and
-           //one more time for good measure
-           var icon = document.getElementsByClassName('menu-icon-link')[0];
-           icon.click();
-           var bodyClass = document.body.classList;
-           expect(bodyClass.contains('menu-hidden')).toBe(false);
-           icon.click();
-           expect(bodyClass.contains('menu-hidden')).toBe(true);
+         it('menu should slide out when icon is clicked', function(done) {
+           expect(diff !== secondDiff).toBe(true);
+           done();
          });
 
 
