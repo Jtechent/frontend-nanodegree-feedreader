@@ -83,7 +83,7 @@ $(function() {
                done();
              }
              else{
-               //after that the function pseudoclicks the icon and after the animation should be completes
+               //after that the function pseudoclicks the icon and after the animation should be completed
                //it records again
                icon.click();
                window.setTimeout(function() {
