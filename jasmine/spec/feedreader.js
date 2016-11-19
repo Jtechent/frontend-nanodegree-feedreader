@@ -10,9 +10,9 @@
  */
 $(function() {
     /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+     * a related set of tests. This suite is all about the RSS
+     * feeds definitions, the allFeeds variable in our application.
+     */
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -27,16 +27,16 @@ $(function() {
         });
 
 
-         function testAllFeedsProp(prop) {
-           //loops through all the elements of the all feeds array and checks if some property is defined and
-           //equal to the correct value
-             it('each feed has a ' + prop + ' property', function() {
-                 for(var i=0;i<allFeeds.length;i++) {
-                   expect(allFeeds[i][prop]).toBeDefined();
-                   expect(allFeeds[i][prop]).not.toEqual('');
-                 }
-             });
-         }
+        function testAllFeedsProp(prop) {
+            //loops through all the elements of the all feeds array and checks if some property is defined and
+            //equal to the correct value
+            it('each feed has a ' + prop + ' property', function() {
+                for (var i = 0; i < allFeeds.length; i++) {
+                    expect(allFeeds[i][prop]).toBeDefined();
+                    expect(allFeeds[i][prop]).not.toEqual('');
+                }
+            });
+        }
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
@@ -45,7 +45,7 @@ $(function() {
 
 
 
-          /* TODO: Write a test that loops through each feed
+        /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
@@ -66,64 +66,63 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-           //some setup variables
-           var diff, secondDiff, thirdDiff, i = 0;
-           var icon = document.querySelector('.menu-icon-link');
+        //some setup variables
+        var diff, secondDiff, thirdDiff, i = 0;
+        var icon = document.querySelector('.menu-icon-link');
 
-           beforeEach(function(done) {
-             jasmine.DEFAULT_TIMEOUT_INTERVAL = 7000;
-             //in order to test the functionality of clicking the slide menu icon I will capture
-             //the left and right boundries of the elements positions before and after the click operation
-             var bodyLeft = document.body.getBoundingClientRect().left,
-                 slideRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-             if (i===0) {
-               //the first time this variable is called it records if the the right side of the
-               //slide menu farther left than the left side of the body of the document
-               diff = bodyLeft >= slideRight;
-               i++;
-               done();
-             }
-             else{
-               //HACK in order to test the slide menu slide i click, wait, read positions and repeat
-               //in the test I will expect the state of those reads to say the menu's right side is
-               //where it should be relative to the left side of the body depending on how many clicks
-               icon.click();
-               window.setTimeout(function() {
-                 console.log('in timeout');
-                 var secondRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-                  secondDiff = bodyLeft >= secondRight;
-                  icon.click();
-                  window.setTimeout(function() {
-                 var thirdRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-                  thirdDiff = bodyLeft >= thirdRight;
-                  console.log(secondDiff, thirdDiff);
-                  done();
-                  }, 2200);
-               }, 2200);
-             }
-           });
+        beforeEach(function(done) {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 7000;
+            //in order to test the functionality of clicking the slide menu icon I will capture
+            //the left and right boundries of the elements positions before and after the click operation
+            var bodyLeft = document.body.getBoundingClientRect().left,
+                slideRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+            if (i === 0) {
+                //the first time this variable is called it records if the the right side of the
+                //slide menu farther left than the left side of the body of the document
+                diff = bodyLeft >= slideRight;
+                i++;
+                done();
+            } else {
+                //HACK in order to test the slide menu slide i click, wait, read positions and repeat
+                //in the test I will expect the state of those reads to say the menu's right side is
+                //where it should be relative to the left side of the body depending on how many clicks
+                icon.click();
+                window.setTimeout(function() {
+                    console.log('in timeout');
+                    var secondRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+                    secondDiff = bodyLeft >= secondRight;
+                    icon.click();
+                    window.setTimeout(function() {
+                        var thirdRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+                        thirdDiff = bodyLeft >= thirdRight;
+                        console.log(secondDiff, thirdDiff);
+                        done();
+                    }, 2200);
+                }, 2200);
+            }
+        });
 
-           afterEach(function() {
-             jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
-           });
+        afterEach(function() {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+        });
 
 
-           it('be hidden by default', function(done) {
-             expect(diff).toBe(true);
-             done();
-           });
+        it('be hidden by default', function(done) {
+            expect(diff).toBe(true);
+            done();
+        });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
 
-         it('menu should slide out when icon is clicked', function(done) {
-           expect(diff !== secondDiff).toBe(true);
-           expect(thirdDiff !== secondDiff).toBe(true);
-           done();
-         });
+        it('menu should slide out when icon is clicked', function(done) {
+            expect(diff !== secondDiff).toBe(true);
+            expect(thirdDiff !== secondDiff).toBe(true);
+            done();
+        });
 
 
     });
@@ -137,46 +136,50 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
-         beforeEach(function(done) {
-           loadFeed(0,done);
-         });
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
 
-         it('loads entries into the feed container when loadFeed is called', function(done) {
-           expect(document.querySelector('.feed .entry')).not.toEqual(null);
-           done();
-         });
+        it('loads entries into the feed container when loadFeed is called', function(done) {
+            expect(document.querySelector('.feed .entry')).not.toEqual(null);
+            done();
+        });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+        /* TODO: Write a new test suite named "New Feed Selection"
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+            /* TODO: Write a test that ensures when a new feed is loaded
+             * by the loadFeed function that the content actually changes.
+             * Remember, loadFeed() is asynchronous.
+             */
     });
 
     describe('New Feed Selection', function() {
-      //gives the ability to save the state of some entry-link content
-      var firstContent = {content:''};
-      var getFirstContent = (function () {
-        var content = firstContent;
-        var tbr = function() {
-          firstContent.content = document.querySelector('.entry-link').textContent;
-        }
-        return tbr;
-      })();
-      beforeEach(function(done) {
-        //load a feed, get the content, load it again and check it again, call done
-        loadFeed(1, function() {
-          getFirstContent();
-          loadFeed(0, function() {done()});
+        //gives the ability to save the state of some entry-link content
+        var firstContent = {
+            content: ''
+        };
+        var getFirstContent = (function() {
+            var content = firstContent;
+            var tbr = function() {
+                firstContent.content = document.querySelector('.entry-link').textContent;
+            }
+            return tbr;
+        })();
+        beforeEach(function(done) {
+            //load a feed, get the content, load it again and check it again, call done
+            loadFeed(1, function() {
+                getFirstContent();
+                loadFeed(0, function() {
+                    done()
+                });
+            });
         });
-      });
 
-      it('should actually change the feed content after loading a new feed', function(done) {
-        var foundContent = document.querySelector('.entry-link').textContent;
-        expect(foundContent).not.toEqual(firstContent.content);
-        done();
-      });
+        it('should actually change the feed content after loading a new feed', function(done) {
+            var foundContent = document.querySelector('.entry-link').textContent;
+            expect(foundContent).not.toEqual(firstContent.content);
+            done();
+        });
 
     });
 
