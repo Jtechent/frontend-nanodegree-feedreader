@@ -38,14 +38,14 @@ $(function() {
             });
         }
 
-        /* TODO: Write a test that loops through each feed
+        /*  Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
 
 
 
-        /* TODO: Write a test that loops through each feed
+        /*  Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
@@ -57,79 +57,42 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /*  Write a new test suite named "The menu" */
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
+        /*  Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
 
-        //some setup variables
-        var diff, secondDiff, thirdDiff, i = 0;
         var icon = document.querySelector('.menu-icon-link');
 
-        beforeEach(function(done) {
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 7000;
-            //in order to test the functionality of clicking the slide menu icon I will capture
-            //the left and right boundries of the elements positions before and after the click operation
-            var bodyLeft = document.body.getBoundingClientRect().left,
-                slideRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-            if (i === 0) {
-                //the first time this variable is called it records if the the right side of the
-                //slide menu farther left than the left side of the body of the document
-                diff = bodyLeft >= slideRight;
-                i++;
-                done();
-            } else {
-                //HACK in order to test the slide menu slide i click, wait, read positions and repeat
-                //in the test I will expect the state of those reads to say the menu's right side is
-                //where it should be relative to the left side of the body depending on how many clicks
-                icon.click();
-                window.setTimeout(function() {
-                    console.log('in timeout');
-                    var secondRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-                    secondDiff = bodyLeft >= secondRight;
-                    icon.click();
-                    window.setTimeout(function() {
-                        var thirdRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
-                        thirdDiff = bodyLeft >= thirdRight;
-                        console.log(secondDiff, thirdDiff);
-                        done();
-                    }, 2200);
-                }, 2200);
-            }
+
+
+        it('be hidden by default', function() {
+            expect(document.body.classList.contains('menu-hidden')).toBe(true);
         });
 
-        afterEach(function() {
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
-        });
-
-
-        it('be hidden by default', function(done) {
-            expect(diff).toBe(true);
-            done();
-        });
-
-        /* TODO: Write a test that ensures the menu changes
+        /*  Write a test that ensures the menu changes
          * visibility when the menu icon is clicked. This test
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
 
-        it('menu should slide out when icon is clicked', function(done) {
-            expect(diff !== secondDiff).toBe(true);
-            expect(thirdDiff !== secondDiff).toBe(true);
-            done();
+        it('menu should slide out when icon is clicked', function() {
+            icon.click();
+            expect(document.body.classList.contains('menu-hidden')).toBe(false);
+            icon.click();
+            expect(document.body.classList.contains('menu-hidden')).toBe(true);
         });
 
 
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /*  Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        /* TODO: Write a test that ensures when the loadFeed
+        /*  Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
@@ -145,9 +108,9 @@ $(function() {
             done();
         });
 
-        /* TODO: Write a new test suite named "New Feed Selection"
+        /*  Write a new test suite named "New Feed Selection"
 
-            /* TODO: Write a test that ensures when a new feed is loaded
+            /*  Write a test that ensures when a new feed is loaded
              * by the loadFeed function that the content actually changes.
              * Remember, loadFeed() is asynchronous.
              */
