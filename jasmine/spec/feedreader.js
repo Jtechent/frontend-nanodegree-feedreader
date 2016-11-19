@@ -128,7 +128,7 @@ $(function() {
          });
 
          it('loads entries into the feed container when loadFeed is called', function(done) {
-           expect(document.querySelector('.feed .entry-link')).not.toEqual(null);
+           expect(document.querySelector('.feed .entry')).not.toEqual(null);
            done();
          });
 
