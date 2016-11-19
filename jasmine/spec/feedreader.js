@@ -84,8 +84,9 @@ $(function() {
                done();
              }
              else{
-               //after that the function pseudoclicks the icon and after the animation should be completed
-               //it records again
+               //HACK in order to test the slide menu slide i click, wait, read positions and repeat
+               //in the test I will expect the state of those reads to say the menu's right side is
+               //where it should be relative to the left side of the body depending on how many clicks
                icon.click();
                window.setTimeout(function() {
                  console.log('in timeout');
