@@ -67,10 +67,11 @@ $(function() {
          */
 
            //some setup variables
-           var diff, secondDiff, i = 0;
+           var diff, secondDiff, thirdDiff, i = 0;
            var icon = document.querySelector('.menu-icon-link');
 
            beforeEach(function(done) {
+             jasmine.DEFAULT_TIMEOUT_INTERVAL = 7000;
              //in order to test the functionality of clicking the slide menu icon I will capture
              //the left and right boundries of the elements positions before and after the click operation
              var bodyLeft = document.body.getBoundingClientRect().left,
@@ -87,11 +88,22 @@ $(function() {
                //it records again
                icon.click();
                window.setTimeout(function() {
+                 console.log('in timeout');
                  var secondRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
                   secondDiff = bodyLeft >= secondRight;
+                  icon.click();
+                  window.setTimeout(function() {
+                 var thirdRight = document.querySelector('.slide-menu').getBoundingClientRect().right;
+                  thirdDiff = bodyLeft >= thirdRight;
+                  console.log(secondDiff, thirdDiff);
                   done();
+                  }, 2200);
                }, 2200);
              }
+           });
+
+           afterEach(function() {
+             jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
            });
 
 
@@ -108,6 +120,7 @@ $(function() {
 
          it('menu should slide out when icon is clicked', function(done) {
            expect(diff !== secondDiff).toBe(true);
+           expect(thirdDiff !== secondDiff).toBe(true);
            done();
          });
 
